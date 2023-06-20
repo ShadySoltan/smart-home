@@ -5,12 +5,12 @@ Contents:
 
 1 Project Overview and specifications
     1.1 PROJECT OVERVIEW
-    1.2 Specifications –LCD& keypad
-    1.3 Specifications –EEPROM
-    1.4 Specifications –TTL/Bluetooth
-    1.5 Specifications –Led, Dimmer
-    1.6 Specifications –Temperature Sensor, DC motor
-    1.7 Specifications – Door
+    1.2 Specifications LCD& keypad
+    1.3 Specifications EEPROM
+    1.4 Specifications TTL/Bluetooth
+    1.5 Specifications Led, Dimmer
+    1.6 Specifications Temperature Sensor, DC motor
+    1.7 Specifications Door
     1.8 Components Used in the project
 
 2 System Functions
@@ -27,8 +27,6 @@ Contents:
     2.10 Void ROOM2(Void)
 
 3 Project Flow Chart
-
-33
 ______________________________________________________________________________________
 
-
+![Alt text](Updated%20Flow%20Chart.png)
