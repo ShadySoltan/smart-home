@@ -256,9 +256,9 @@ void MainMenu(void) //Main App Menu
 {
 	u8 PressKey = STD_Low;
 	LCD_Clear();
-	LCD_String("1:ROOM1 2:ROOM2");
+	LCD_String("1:ROOM1");
 	LCD_SetPos(2,0);
-	LCD_String("3:Main DOOR");
+	LCD_String("2:ROOM2");
 	
 	while(PressKey == STD_Low){
 		PressKey = GetKey(); //Wait for user Input
@@ -278,17 +278,12 @@ void MainMenu(void) //Main App Menu
 				ROOM2();
 				break;
 				
-				case '3':
-				LCD_Clear();
-				PressKey = STD_Low;
-				Door();
-				break;
-				
 				default:
 				LCD_Clear();
 				LCD_String("Wrong Choice!");
 				_delay_ms(500);
 				LCD_Clear();
+				MainMenu();
 				break;
 			}
 		}
