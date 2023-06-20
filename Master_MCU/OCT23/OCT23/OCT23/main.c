@@ -33,9 +33,9 @@ int main(void)
 	Keypad_Init(); //Initialize keypad with MASTER MCU
 	TWI_Init(0x66); //Setting Master MCU address "I2C COMM."
 	SPI_Init(&options); //Initialize Master SPI
-	UART_Config uartconf = {BaudRate_9600,DoupleSpeedDisable,CharacterSize_8Bits,Stop_1Bit,Parity_Disable,TX_Enable,RX_Enable};
-	Bluetooth_Init(&uartconf);
-	DIO_ConfigChannel(DIO_ChannelD0,Input);
+	UART_Config uartconf = {BaudRate_9600,DoupleSpeedDisable,CharacterSize_8Bits,Stop_1Bit,Parity_Disable,TX_Enable,RX_Enable}; //Configure UART
+	Bluetooth_Init(&uartconf); //Initialize blue tooth module
+	DIO_ConfigChannel(DIO_ChannelD0,Input); //Make RX pin input for receiving 
 	_delay_ms(100);
 	
 	ALARM(); //if alarm not set will proceed to menu1

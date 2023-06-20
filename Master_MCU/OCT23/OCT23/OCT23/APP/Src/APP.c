@@ -55,6 +55,7 @@ void getPassword(u8 location, s8* Store)
 
 void Menu1(void)
 {
+	LCD_Clear();
 	LCD_SetPos(1,3);
 	LCD_String("Smart-Home");
 	LCD_SetPos(2,3);
@@ -214,6 +215,7 @@ void Menu2(void)
 			LCD_String("System Blocked!");
 			LCD_SetPos(2,0);
 			LCD_String("Firing Alarm!!!");
+			Bluetooth_TransmaitString("Alarm triggered!");
 			EEPROM_WriteByte(ALARM_LOC,0,'1');
 			_delay_ms(50);
 			DIO_WriteChannel(DIO_ChannelB0,STD_High);
@@ -256,7 +258,7 @@ void MainMenu(void) //Main App Menu
 {
 	u8 PressKey = STD_Low;
 	LCD_Clear();
-	LCD_String("1:ROOM1");
+	LCD_String("1:ROOM1  3:Admin");
 	LCD_SetPos(2,0);
 	LCD_String("2:ROOM2");
 	
@@ -276,6 +278,13 @@ void MainMenu(void) //Main App Menu
 				LCD_Clear();
 				PressKey = STD_Low;
 				ROOM2();
+				break;
+				
+				case '3':
+				LCD_Clear();
+				PressKey = STD_Low;
+				LCD_String("Admin mode on");
+				AdminMenu();
 				break;
 				
 				default:
@@ -962,6 +971,8 @@ void ROOM2(void)
 
 void AdminMenu(void)
 {
+	LCD_Clear();
+	LCD_String("Admin mode on");
 	Bluetooth_TransmaitString("\n\nSmart-Home Project\nAdmin mode\n");
 	Bluetooth_TransmaitString("Room1\n11)Lamp1\n22)Lamp2\n33)Air-Conditioner\n\n");
 	Bluetooth_TransmaitString("\nRoom2\n44)Lamp1\n55)Lamp2\n66)Lamp3\n7)Main-Door\n8)User-Mode");
@@ -970,11 +981,11 @@ void AdminMenu(void)
 	adminmenu:
 	Admin_Choice = STD_Low;
 	Admin_Choice = Bluetooth_Receive();
+	
 
 	switch(Admin_Choice)
 	{
 		case '1':
-		_delay_ms(6000);
 		status = SPI_TxRx(Led1);
 		if(status == On)
 		{
