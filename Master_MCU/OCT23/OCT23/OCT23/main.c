@@ -36,18 +36,14 @@ int main(void)
 	UART_Config uartconf = {BaudRate_9600,DoupleSpeedDisable,CharacterSize_8Bits,Stop_1Bit,Parity_Disable,TX_Enable,RX_Enable}; //Configure UART
 	Bluetooth_Init(&uartconf); //Initialize bluetooth module
 	DIO_ConfigChannel(DIO_ChannelD0,Input); //Make RX pin input for receiving 
+	
 	_delay_ms(100);
 	
-	ALARM(); //if alarm not set will proceed to menu1
+	ALARM(); //if alarm not set, will proceed to main door checking
 	DoorCheck();
-	goto admin;
-	Menu1(); //if passed menu1 will proceed to menu2
-	Menu2(); //if passed menu2 will proceed to Main Menu
 	
 	while (1)
 	{
-		MainMenu(); //Main menu to control Home
-		admin:
 		AdminMenu();
 	}
 }

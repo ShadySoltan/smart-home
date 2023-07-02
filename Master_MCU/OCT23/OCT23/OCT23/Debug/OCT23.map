@@ -48,7 +48,8 @@ Discarded input sections
  .text          0x00000000        0x0 APP/Src/APP.o
  .data          0x00000000        0x0 APP/Src/APP.o
  .bss           0x00000000        0x0 APP/Src/APP.o
- .text.Door     0x00000000      0x1f0 APP/Src/APP.o
+ .text.Register
+                0x00000000       0x2a APP/Src/APP.o
  .text          0x00000000        0x0 HAL/Bluetooth/src/Bluetooth.o
  .data          0x00000000        0x0 HAL/Bluetooth/src/Bluetooth.o
  .bss           0x00000000        0x0 HAL/Bluetooth/src/Bluetooth.o
@@ -417,7 +418,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000     0x227a
+.text           0x00000000     0x257a
  *(.vectors)
  .vectors       0x00000000       0x54 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega32/avr5/crtatmega32.o
                 0x00000000                __vector_default
@@ -425,45 +426,45 @@ END GROUP
  *(.vectors)
  *(.progmem.gcc*)
  .progmem.gcc_sw_table.AdminMenu
-                0x00000054       0x10 APP/Src/APP.o
-                0x00000064                . = ALIGN (0x2)
-                0x00000064                __trampolines_start = .
+                0x00000054       0x6a APP/Src/APP.o
+                0x000000be                . = ALIGN (0x2)
+                0x000000be                __trampolines_start = .
  *(.trampolines)
- .trampolines   0x00000064        0x0 linker stubs
+ .trampolines   0x000000be        0x0 linker stubs
  *(.trampolines*)
-                0x00000064                __trampolines_end = .
+                0x000000be                __trampolines_end = .
  *libprintf_flt.a:*(.progmem.data)
  *libc.a:*(.progmem.data)
  *(.progmem*)
-                0x00000064                . = ALIGN (0x2)
+                0x000000be                . = ALIGN (0x2)
  *(.jumptables)
  *(.jumptables*)
  *(.lowtext)
  *(.lowtext*)
-                0x00000064                __ctors_start = .
+                0x000000be                __ctors_start = .
  *(.ctors)
-                0x00000064                __ctors_end = .
-                0x00000064                __dtors_start = .
+                0x000000be                __ctors_end = .
+                0x000000be                __dtors_start = .
  *(.dtors)
-                0x00000064                __dtors_end = .
+                0x000000be                __dtors_end = .
  SORT(*)(.ctors)
  SORT(*)(.dtors)
  *(.init0)
- .init0         0x00000064        0x0 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega32/avr5/crtatmega32.o
-                0x00000064                __init
+ .init0         0x000000be        0x0 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega32/avr5/crtatmega32.o
+                0x000000be                __init
  *(.init0)
  *(.init1)
  *(.init1)
  *(.init2)
- .init2         0x00000064        0xc C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega32/avr5/crtatmega32.o
+ .init2         0x000000be        0xc C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega32/avr5/crtatmega32.o
  *(.init2)
  *(.init3)
  *(.init3)
  *(.init4)
- .init4         0x00000070       0x16 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_copy_data.o)
-                0x00000070                __do_copy_data
- .init4         0x00000086       0x10 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_clear_bss.o)
-                0x00000086                __do_clear_bss
+ .init4         0x000000ca       0x16 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_copy_data.o)
+                0x000000ca                __do_copy_data
+ .init4         0x000000e0       0x10 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_clear_bss.o)
+                0x000000e0                __do_clear_bss
  *(.init4)
  *(.init5)
  *(.init5)
@@ -474,229 +475,235 @@ END GROUP
  *(.init8)
  *(.init8)
  *(.init9)
- .init9         0x00000096        0x8 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega32/avr5/crtatmega32.o
+ .init9         0x000000f0        0x8 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega32/avr5/crtatmega32.o
  *(.init9)
  *(.text)
- .text          0x0000009e        0x4 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega32/avr5/crtatmega32.o
-                0x0000009e                __vector_12
-                0x0000009e                __bad_interrupt
-                0x0000009e                __vector_6
-                0x0000009e                __vector_11
-                0x0000009e                __vector_13
-                0x0000009e                __vector_17
-                0x0000009e                __vector_19
-                0x0000009e                __vector_5
-                0x0000009e                __vector_4
-                0x0000009e                __vector_15
-                0x0000009e                __vector_14
-                0x0000009e                __vector_10
-                0x0000009e                __vector_16
-                0x0000009e                __vector_18
-                0x0000009e                __vector_20
-                0x000000a2                . = ALIGN (0x2)
+ .text          0x000000f8        0x4 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega32/avr5/crtatmega32.o
+                0x000000f8                __vector_12
+                0x000000f8                __bad_interrupt
+                0x000000f8                __vector_6
+                0x000000f8                __vector_11
+                0x000000f8                __vector_13
+                0x000000f8                __vector_17
+                0x000000f8                __vector_19
+                0x000000f8                __vector_5
+                0x000000f8                __vector_4
+                0x000000f8                __vector_15
+                0x000000f8                __vector_14
+                0x000000f8                __vector_10
+                0x000000f8                __vector_16
+                0x000000f8                __vector_18
+                0x000000f8                __vector_20
+                0x000000fc                . = ALIGN (0x2)
  *(.text.*)
  .text.Password_Exist
-                0x000000a2       0x7c APP/Src/APP.o
-                0x000000a2                Password_Exist
+                0x000000fc       0x7c APP/Src/APP.o
+                0x000000fc                Password_Exist
  .text.getPassword
-                0x0000011e       0x3e APP/Src/APP.o
-                0x0000011e                getPassword
- .text.ALARM    0x0000015c       0x3a APP/Src/APP.o
-                0x0000015c                ALARM
+                0x00000178       0x3e APP/Src/APP.o
+                0x00000178                getPassword
+ .text.ALARM    0x000001b6       0x3a APP/Src/APP.o
+                0x000001b6                ALARM
  .text.DoorCheck
-                0x00000196       0x28 APP/Src/APP.o
-                0x00000196                DoorCheck
+                0x000001f0       0x28 APP/Src/APP.o
+                0x000001f0                DoorCheck
+ .text.Users_Count
+                0x00000218       0x22 APP/Src/APP.o
+                0x00000218                Users_Count
+ .text.ChooseUser
+                0x0000023a       0x4e APP/Src/APP.o
+                0x0000023a                ChooseUser
  .text.AdminMenu
-                0x000001be      0x1e6 APP/Src/APP.o
-                0x000001be                AdminMenu
+                0x00000288      0x33a APP/Src/APP.o
+                0x00000288                AdminMenu
  .text.MainMenu
-                0x000003a4       0xc6 APP/Src/APP.o
-                0x000003a4                MainMenu
- .text.Menu2    0x0000046a      0x1f4 APP/Src/APP.o
-                0x0000046a                Menu2
- .text.Menu1    0x0000065e      0x264 APP/Src/APP.o
-                0x0000065e                Menu1
- .text.ROOM1    0x000008c2      0x466 APP/Src/APP.o
-                0x000008c2                ROOM1
- .text.ROOM2    0x00000d28      0x3a6 APP/Src/APP.o
-                0x00000d28                ROOM2
+                0x000005c2       0xd4 APP/Src/APP.o
+                0x000005c2                MainMenu
+ .text.Menu2    0x00000696      0x228 APP/Src/APP.o
+                0x00000696                Menu2
+ .text.ROOM1    0x000008be      0x490 APP/Src/APP.o
+                0x000008be                ROOM1
+ .text.ROOM2    0x00000d4e      0x3cc APP/Src/APP.o
+                0x00000d4e                ROOM2
+ .text.Menu1    0x0000111a      0x2b8 APP/Src/APP.o
+                0x0000111a                Menu1
  .text.Bluetooth_Init
-                0x000010ce        0x6 HAL/Bluetooth/src/Bluetooth.o
-                0x000010ce                Bluetooth_Init
+                0x000013d2        0x6 HAL/Bluetooth/src/Bluetooth.o
+                0x000013d2                Bluetooth_Init
  .text.Bluetooth_TransmaitString
-                0x000010d4        0x6 HAL/Bluetooth/src/Bluetooth.o
-                0x000010d4                Bluetooth_TransmaitString
+                0x000013d8        0x6 HAL/Bluetooth/src/Bluetooth.o
+                0x000013d8                Bluetooth_TransmaitString
  .text.Bluetooth_Receive
-                0x000010da        0x6 HAL/Bluetooth/src/Bluetooth.o
-                0x000010da                Bluetooth_Receive
+                0x000013de        0x6 HAL/Bluetooth/src/Bluetooth.o
+                0x000013de                Bluetooth_Receive
  .text.EEPROM_WriteByte
-                0x000010e0       0x40 HAL/EEPROM/src/EEPROM.o
-                0x000010e0                EEPROM_WriteByte
+                0x000013e4       0x40 HAL/EEPROM/src/EEPROM.o
+                0x000013e4                EEPROM_WriteByte
  .text.EEPROM_ReadByte
-                0x00001120       0x64 HAL/EEPROM/src/EEPROM.o
-                0x00001120                EEPROM_ReadByte
+                0x00001424       0x64 HAL/EEPROM/src/EEPROM.o
+                0x00001424                EEPROM_ReadByte
  .text.Keypad_Init
-                0x00001184       0x6e HAL/Keypad/src/Keypad.o
-                0x00001184                Keypad_Init
- .text.GetKey   0x000011f2       0xb8 HAL/Keypad/src/Keypad.o
-                0x000011f2                GetKey
- .text.LCD_Cmd  0x000012aa       0x90 HAL/LCD/src/LCD.o
-                0x000012aa                LCD_Cmd
+                0x00001488       0x6e HAL/Keypad/src/Keypad.o
+                0x00001488                Keypad_Init
+ .text.GetKey   0x000014f6       0xb8 HAL/Keypad/src/Keypad.o
+                0x000014f6                GetKey
+ .text.LCD_Cmd  0x000015ae       0x90 HAL/LCD/src/LCD.o
+                0x000015ae                LCD_Cmd
  .text.LCD_Init
-                0x0000133a       0x42 HAL/LCD/src/LCD.o
-                0x0000133a                LCD_Init
+                0x0000163e       0x42 HAL/LCD/src/LCD.o
+                0x0000163e                LCD_Init
  .text.LCD_Char
-                0x0000137c       0x90 HAL/LCD/src/LCD.o
-                0x0000137c                LCD_Char
+                0x00001680       0x90 HAL/LCD/src/LCD.o
+                0x00001680                LCD_Char
  .text.LCD_String
-                0x0000140c       0x2c HAL/LCD/src/LCD.o
-                0x0000140c                LCD_String
+                0x00001710       0x2c HAL/LCD/src/LCD.o
+                0x00001710                LCD_String
  .text.LCD_SetPos
-                0x00001438       0x22 HAL/LCD/src/LCD.o
-                0x00001438                LCD_SetPos
+                0x0000173c       0x22 HAL/LCD/src/LCD.o
+                0x0000173c                LCD_SetPos
  .text.LCD_Custome_Char
-                0x0000145a       0x36 HAL/LCD/src/LCD.o
-                0x0000145a                LCD_Custome_Char
+                0x0000175e       0x36 HAL/LCD/src/LCD.o
+                0x0000175e                LCD_Custome_Char
  .text.LCD_Clear
-                0x00001490        0x8 HAL/LCD/src/LCD.o
-                0x00001490                LCD_Clear
+                0x00001794        0x8 HAL/LCD/src/LCD.o
+                0x00001794                LCD_Clear
  .text.ServoMotor
-                0x00001498       0x92 HAL/ServoMotor/src/ServoMotor.o
-                0x00001498                ServoMotor
- .text.main     0x0000152a       0x80 main.o
-                0x0000152a                main
+                0x0000179c       0x92 HAL/ServoMotor/src/ServoMotor.o
+                0x0000179c                ServoMotor
+ .text.main     0x0000182e       0x7c main.o
+                0x0000182e                main
  .text.DIO_WriteChannel
-                0x000015aa      0x104 MCAL/DIO/src/DIO.o
-                0x000015aa                DIO_WriteChannel
+                0x000018aa      0x104 MCAL/DIO/src/DIO.o
+                0x000018aa                DIO_WriteChannel
  .text.DIO_ReadChannel
-                0x000016ae       0x66 MCAL/DIO/src/DIO.o
-                0x000016ae                DIO_ReadChannel
+                0x000019ae       0x66 MCAL/DIO/src/DIO.o
+                0x000019ae                DIO_ReadChannel
  .text.DIO_ConfigChannel
-                0x00001714      0x104 MCAL/DIO/src/DIO.o
-                0x00001714                DIO_ConfigChannel
+                0x00001a14      0x104 MCAL/DIO/src/DIO.o
+                0x00001a14                DIO_ConfigChannel
  .text.DIO_ReadPort
-                0x00001818       0x24 MCAL/DIO/src/DIO.o
-                0x00001818                DIO_ReadPort
+                0x00001b18       0x24 MCAL/DIO/src/DIO.o
+                0x00001b18                DIO_ReadPort
  .text.DIO_WritePort
-                0x0000183c       0x20 MCAL/DIO/src/DIO.o
-                0x0000183c                DIO_WritePort
+                0x00001b3c       0x20 MCAL/DIO/src/DIO.o
+                0x00001b3c                DIO_WritePort
  .text.DIO_Init
-                0x0000185c      0x102 MCAL/DIO/src/DIO_CFG.o
-                0x0000185c                DIO_Init
+                0x00001b5c      0x102 MCAL/DIO/src/DIO_CFG.o
+                0x00001b5c                DIO_Init
  .text.__vector_1
-                0x0000195e       0x4e MCAL/Ext_Int/src/Ext_Int.o
-                0x0000195e                __vector_1
+                0x00001c5e       0x4e MCAL/Ext_Int/src/Ext_Int.o
+                0x00001c5e                __vector_1
  .text.__vector_2
-                0x000019ac       0x4e MCAL/Ext_Int/src/Ext_Int.o
-                0x000019ac                __vector_2
+                0x00001cac       0x4e MCAL/Ext_Int/src/Ext_Int.o
+                0x00001cac                __vector_2
  .text.__vector_3
-                0x000019fa       0x4e MCAL/Ext_Int/src/Ext_Int.o
-                0x000019fa                __vector_3
+                0x00001cfa       0x4e MCAL/Ext_Int/src/Ext_Int.o
+                0x00001cfa                __vector_3
  .text.SPI_Init
-                0x00001a48       0x8c MCAL/SPI/src/SPI.o
-                0x00001a48                SPI_Init
+                0x00001d48       0x8c MCAL/SPI/src/SPI.o
+                0x00001d48                SPI_Init
  .text.SPI_TxRx
-                0x00001ad4        0xa MCAL/SPI/src/SPI.o
-                0x00001ad4                SPI_TxRx
+                0x00001dd4        0xa MCAL/SPI/src/SPI.o
+                0x00001dd4                SPI_TxRx
  .text.TIMER1_Init
-                0x00001ade      0x152 MCAL/TIMER1/src/TIMER1.o
-                0x00001ade                TIMER1_Init
+                0x00001dde      0x152 MCAL/TIMER1/src/TIMER1.o
+                0x00001dde                TIMER1_Init
  .text.TIMER1_OCR1A_SetValue
-                0x00001c30        0x6 MCAL/TIMER1/src/TIMER1.o
-                0x00001c30                TIMER1_OCR1A_SetValue
+                0x00001f30        0x6 MCAL/TIMER1/src/TIMER1.o
+                0x00001f30                TIMER1_OCR1A_SetValue
  .text.TIMER1_ICR_SetValue
-                0x00001c36        0x6 MCAL/TIMER1/src/TIMER1.o
-                0x00001c36                TIMER1_ICR_SetValue
+                0x00001f36        0x6 MCAL/TIMER1/src/TIMER1.o
+                0x00001f36                TIMER1_ICR_SetValue
  .text.__vector_7
-                0x00001c3c       0x4e MCAL/TIMER1/src/TIMER1.o
-                0x00001c3c                __vector_7
+                0x00001f3c       0x4e MCAL/TIMER1/src/TIMER1.o
+                0x00001f3c                __vector_7
  .text.__vector_8
-                0x00001c8a       0x4e MCAL/TIMER1/src/TIMER1.o
-                0x00001c8a                __vector_8
+                0x00001f8a       0x4e MCAL/TIMER1/src/TIMER1.o
+                0x00001f8a                __vector_8
  .text.__vector_9
-                0x00001cd8       0x4e MCAL/TIMER1/src/TIMER1.o
-                0x00001cd8                __vector_9
+                0x00001fd8       0x4e MCAL/TIMER1/src/TIMER1.o
+                0x00001fd8                __vector_9
  .text.TWI_Init
-                0x00001d26        0x8 MCAL/TWI/src/TWI.o
-                0x00001d26                TWI_Init
+                0x00002026        0x8 MCAL/TWI/src/TWI.o
+                0x00002026                TWI_Init
  .text.TWI_Start
-                0x00001d2e       0x2a MCAL/TWI/src/TWI.o
-                0x00001d2e                TWI_Start
+                0x0000202e       0x2a MCAL/TWI/src/TWI.o
+                0x0000202e                TWI_Start
  .text.TWI_Send
-                0x00001d58       0x2c MCAL/TWI/src/TWI.o
-                0x00001d58                TWI_Send
+                0x00002058       0x2c MCAL/TWI/src/TWI.o
+                0x00002058                TWI_Send
  .text.TWI_Read_NAck
-                0x00001d84       0x30 MCAL/TWI/src/TWI.o
-                0x00001d84                TWI_Read_NAck
+                0x00002084       0x30 MCAL/TWI/src/TWI.o
+                0x00002084                TWI_Read_NAck
  .text.TWI_Stop
-                0x00001db4       0x20 MCAL/TWI/src/TWI.o
-                0x00001db4                TWI_Stop
+                0x000020b4       0x20 MCAL/TWI/src/TWI.o
+                0x000020b4                TWI_Stop
  .text.UART_Init
-                0x00001dd4       0xe8 MCAL/UART/src/UART.o
-                0x00001dd4                UART_Init
+                0x000020d4       0xe8 MCAL/UART/src/UART.o
+                0x000020d4                UART_Init
  .text.UART_Transmait
-                0x00001ebc        0x8 MCAL/UART/src/UART.o
-                0x00001ebc                UART_Transmait
+                0x000021bc        0x8 MCAL/UART/src/UART.o
+                0x000021bc                UART_Transmait
  .text.UART_TransmaitString
-                0x00001ec4       0x2c MCAL/UART/src/UART.o
-                0x00001ec4                UART_TransmaitString
+                0x000021c4       0x2c MCAL/UART/src/UART.o
+                0x000021c4                UART_TransmaitString
  .text.UART_Receive
-                0x00001ef0        0x8 MCAL/UART/src/UART.o
-                0x00001ef0                UART_Receive
+                0x000021f0        0x8 MCAL/UART/src/UART.o
+                0x000021f0                UART_Receive
  .text.avr-libc.fplib
-                0x00001ef8        0xe c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(addsf3.o)
-                0x00001ef8                __subsf3
-                0x00001efa                __addsf3
+                0x000021f8        0xe c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(addsf3.o)
+                0x000021f8                __subsf3
+                0x000021fa                __addsf3
  .text.avr-libc.fplib
-                0x00001f06       0xcc c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(addsf3x.o)
-                0x00001f28                __addsf3x
+                0x00002206       0xcc c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(addsf3x.o)
+                0x00002228                __addsf3x
  .text.avr-libc.fplib
-                0x00001fd2       0x5e c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(fixunssfsi.o)
-                0x00001fd2                __fixunssfsi
+                0x000022d2       0x5e c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(fixunssfsi.o)
+                0x000022d2                __fixunssfsi
  .text.avr-libc.fplib
-                0x00002030       0x7a c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(floatsisf.o)
-                0x00002030                __floatunsisf
-                0x00002034                __floatsisf
+                0x00002330       0x7a c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(floatsisf.o)
+                0x00002330                __floatunsisf
+                0x00002334                __floatsisf
  .text.avr-libc.fplib
-                0x000020aa        0xc c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(fp_inf.o)
-                0x000020aa                __fp_inf
+                0x000023aa        0xc c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(fp_inf.o)
+                0x000023aa                __fp_inf
  .text.avr-libc.fplib
-                0x000020b6        0x6 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(fp_nan.o)
-                0x000020b6                __fp_nan
+                0x000023b6        0x6 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(fp_nan.o)
+                0x000023b6                __fp_nan
  .text.avr-libc.fplib
-                0x000020bc        0xe c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(fp_pscA.o)
-                0x000020bc                __fp_pscA
+                0x000023bc        0xe c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(fp_pscA.o)
+                0x000023bc                __fp_pscA
  .text.avr-libc.fplib
-                0x000020ca        0xe c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(fp_pscB.o)
-                0x000020ca                __fp_pscB
+                0x000023ca        0xe c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(fp_pscB.o)
+                0x000023ca                __fp_pscB
  .text.avr-libc.fplib
-                0x000020d8       0x22 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(fp_round.o)
-                0x000020d8                __fp_round
+                0x000023d8       0x22 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(fp_round.o)
+                0x000023d8                __fp_round
  .text.avr-libc.fplib
-                0x000020fa       0x44 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(fp_split3.o)
-                0x000020fa                __fp_split3
-                0x0000210a                __fp_splitA
+                0x000023fa       0x44 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(fp_split3.o)
+                0x000023fa                __fp_split3
+                0x0000240a                __fp_splitA
  .text.avr-libc.fplib
-                0x0000213e        0xe c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(fp_zero.o)
-                0x0000213e                __fp_zero
-                0x00002140                __fp_szero
+                0x0000243e        0xe c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(fp_zero.o)
+                0x0000243e                __fp_zero
+                0x00002440                __fp_szero
  .text.avr-libc.fplib
-                0x0000214c        0x8 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(mulsf3.o)
-                0x0000214c                __mulsf3
+                0x0000244c        0x8 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(mulsf3.o)
+                0x0000244c                __mulsf3
  .text.avr-libc.fplib
-                0x00002154       0xd2 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(mulsf3x.o)
-                0x00002172                __mulsf3x
-                0x00002178                __mulsf3_pse
+                0x00002454       0xd2 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a(mulsf3x.o)
+                0x00002472                __mulsf3x
+                0x00002478                __mulsf3_pse
  .text.libgcc.div
-                0x00002226       0x44 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_udivmodsi4.o)
-                0x00002226                __udivmodsi4
- .text.libgcc   0x0000226a        0xc c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_tablejump2.o)
-                0x0000226a                __tablejump2__
-                0x00002276                . = ALIGN (0x2)
+                0x00002526       0x44 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_udivmodsi4.o)
+                0x00002526                __udivmodsi4
+ .text.libgcc   0x0000256a        0xc c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_tablejump2.o)
+                0x0000256a                __tablejump2__
+                0x00002576                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00002276        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
-                0x00002276                _exit
-                0x00002276                exit
+ .fini9         0x00002576        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+                0x00002576                _exit
+                0x00002576                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -715,11 +722,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00002276        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+ .fini0         0x00002576        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x0000227a                _etext = .
+                0x0000257a                _etext = .
 
-.data           0x00800060      0x564 load address 0x0000227a
+.data           0x00800060      0x754 load address 0x0000257a
                 0x00800060                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -742,46 +749,45 @@ END GROUP
  .rodata        0x008000c8        0x8 main.o
  *(.rodata*)
  .rodata.str1.1
-                0x008000d0      0x4f3 APP/Src/APP.o
-                                0x4fd (size before relaxing)
+                0x008000d0      0x6e4 APP/Src/APP.o
+                                0x6ee (size before relaxing)
  *(.gnu.linkonce.r*)
-                0x008005c4                . = ALIGN (0x2)
- *fill*         0x008005c3        0x1 
-                0x008005c4                _edata = .
-                0x008005c4                PROVIDE (__data_end, .)
+                0x008007b4                . = ALIGN (0x2)
+                0x008007b4                _edata = .
+                0x008007b4                PROVIDE (__data_end, .)
 
-.bss            0x008005c4        0xc
-                0x008005c4                PROVIDE (__bss_start, .)
+.bss            0x008007b4        0xc
+                0x008007b4                PROVIDE (__bss_start, .)
  *(.bss)
  *(.bss*)
  .bss.ExtInt2FunPtr
-                0x008005c4        0x2 MCAL/Ext_Int/src/Ext_Int.o
-                0x008005c4                ExtInt2FunPtr
+                0x008007b4        0x2 MCAL/Ext_Int/src/Ext_Int.o
+                0x008007b4                ExtInt2FunPtr
  .bss.ExtInt1FunPtr
-                0x008005c6        0x2 MCAL/Ext_Int/src/Ext_Int.o
-                0x008005c6                ExtInt1FunPtr
+                0x008007b6        0x2 MCAL/Ext_Int/src/Ext_Int.o
+                0x008007b6                ExtInt1FunPtr
  .bss.ExtInt0FunPtr
-                0x008005c8        0x2 MCAL/Ext_Int/src/Ext_Int.o
-                0x008005c8                ExtInt0FunPtr
+                0x008007b8        0x2 MCAL/Ext_Int/src/Ext_Int.o
+                0x008007b8                ExtInt0FunPtr
  .bss.Timer1TovIntFunPtr
-                0x008005ca        0x2 MCAL/TIMER1/src/TIMER1.o
-                0x008005ca                Timer1TovIntFunPtr
+                0x008007ba        0x2 MCAL/TIMER1/src/TIMER1.o
+                0x008007ba                Timer1TovIntFunPtr
  .bss.Timer1Oc1bIntFunPtr
-                0x008005cc        0x2 MCAL/TIMER1/src/TIMER1.o
-                0x008005cc                Timer1Oc1bIntFunPtr
+                0x008007bc        0x2 MCAL/TIMER1/src/TIMER1.o
+                0x008007bc                Timer1Oc1bIntFunPtr
  .bss.Timer1Oc1aIntFunPtr
-                0x008005ce        0x2 MCAL/TIMER1/src/TIMER1.o
-                0x008005ce                Timer1Oc1aIntFunPtr
+                0x008007be        0x2 MCAL/TIMER1/src/TIMER1.o
+                0x008007be                Timer1Oc1aIntFunPtr
  *(COMMON)
-                0x008005d0                PROVIDE (__bss_end, .)
-                0x0000227a                __data_load_start = LOADADDR (.data)
-                0x000027de                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x008007c0                PROVIDE (__bss_end, .)
+                0x0000257a                __data_load_start = LOADADDR (.data)
+                0x00002cce                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x008005d0        0x0
+.noinit         0x008007c0        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
  *(.noinit*)
                 [!provide]                PROVIDE (__noinit_end, .)
-                0x008005d0                _end = .
+                0x008007c0                _end = .
                 [!provide]                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
@@ -859,159 +865,159 @@ END GROUP
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x00000000      0x370
+.debug_aranges  0x00000000      0x380
  *(.debug_aranges)
  .debug_aranges
-                0x00000000       0x70 APP/Src/APP.o
+                0x00000000       0x80 APP/Src/APP.o
  .debug_aranges
-                0x00000070       0x38 HAL/Bluetooth/src/Bluetooth.o
+                0x00000080       0x38 HAL/Bluetooth/src/Bluetooth.o
  .debug_aranges
-                0x000000a8       0x28 HAL/EEPROM/src/EEPROM.o
+                0x000000b8       0x28 HAL/EEPROM/src/EEPROM.o
  .debug_aranges
-                0x000000d0       0x28 HAL/Keypad/src/Keypad.o
+                0x000000e0       0x28 HAL/Keypad/src/Keypad.o
  .debug_aranges
-                0x000000f8       0x50 HAL/LCD/src/LCD.o
+                0x00000108       0x50 HAL/LCD/src/LCD.o
  .debug_aranges
-                0x00000148       0x20 HAL/ServoMotor/src/ServoMotor.o
+                0x00000158       0x20 HAL/ServoMotor/src/ServoMotor.o
  .debug_aranges
-                0x00000168       0x20 main.o
+                0x00000178       0x20 main.o
  .debug_aranges
-                0x00000188       0x50 MCAL/DIO/src/DIO.o
+                0x00000198       0x50 MCAL/DIO/src/DIO.o
  .debug_aranges
-                0x000001d8       0x20 MCAL/DIO/src/DIO_CFG.o
+                0x000001e8       0x20 MCAL/DIO/src/DIO_CFG.o
  .debug_aranges
-                0x000001f8       0x50 MCAL/Ext_Int/src/Ext_Int.o
+                0x00000208       0x50 MCAL/Ext_Int/src/Ext_Int.o
  .debug_aranges
-                0x00000248       0x38 MCAL/SPI/src/SPI.o
+                0x00000258       0x38 MCAL/SPI/src/SPI.o
  .debug_aranges
-                0x00000280       0x68 MCAL/TIMER1/src/TIMER1.o
+                0x00000290       0x68 MCAL/TIMER1/src/TIMER1.o
  .debug_aranges
-                0x000002e8       0x50 MCAL/TWI/src/TWI.o
+                0x000002f8       0x50 MCAL/TWI/src/TWI.o
  .debug_aranges
-                0x00000338       0x38 MCAL/UART/src/UART.o
+                0x00000348       0x38 MCAL/UART/src/UART.o
 
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x6b27
+.debug_info     0x00000000     0x6d99
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x4e6 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega32/avr5/crtatmega32.o
- .debug_info    0x000004e6     0x2f35 APP/Src/APP.o
- .debug_info    0x0000341b      0x360 HAL/Bluetooth/src/Bluetooth.o
- .debug_info    0x0000377b      0x242 HAL/EEPROM/src/EEPROM.o
- .debug_info    0x000039bd      0x2fd HAL/Keypad/src/Keypad.o
- .debug_info    0x00003cba      0x82b HAL/LCD/src/LCD.o
- .debug_info    0x000044e5      0x427 HAL/ServoMotor/src/ServoMotor.o
- .debug_info    0x0000490c      0x5ee main.o
- .debug_info    0x00004efa      0x3ab MCAL/DIO/src/DIO.o
- .debug_info    0x000052a5      0x24f MCAL/DIO/src/DIO_CFG.o
- .debug_info    0x000054f4      0x222 MCAL/Ext_Int/src/Ext_Int.o
- .debug_info    0x00005716      0x5ba MCAL/SPI/src/SPI.o
- .debug_info    0x00005cd0      0x562 MCAL/TIMER1/src/TIMER1.o
- .debug_info    0x00006232      0x311 MCAL/TWI/src/TWI.o
- .debug_info    0x00006543      0x5e4 MCAL/UART/src/UART.o
+ .debug_info    0x000004e6     0x31c8 APP/Src/APP.o
+ .debug_info    0x000036ae      0x360 HAL/Bluetooth/src/Bluetooth.o
+ .debug_info    0x00003a0e      0x242 HAL/EEPROM/src/EEPROM.o
+ .debug_info    0x00003c50      0x2fd HAL/Keypad/src/Keypad.o
+ .debug_info    0x00003f4d      0x82b HAL/LCD/src/LCD.o
+ .debug_info    0x00004778      0x427 HAL/ServoMotor/src/ServoMotor.o
+ .debug_info    0x00004b9f      0x5cd main.o
+ .debug_info    0x0000516c      0x3ab MCAL/DIO/src/DIO.o
+ .debug_info    0x00005517      0x24f MCAL/DIO/src/DIO_CFG.o
+ .debug_info    0x00005766      0x222 MCAL/Ext_Int/src/Ext_Int.o
+ .debug_info    0x00005988      0x5ba MCAL/SPI/src/SPI.o
+ .debug_info    0x00005f42      0x562 MCAL/TIMER1/src/TIMER1.o
+ .debug_info    0x000064a4      0x311 MCAL/TWI/src/TWI.o
+ .debug_info    0x000067b5      0x5e4 MCAL/UART/src/UART.o
 
-.debug_abbrev   0x00000000     0x1556
+.debug_abbrev   0x00000000     0x1557
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x4a3 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega32/avr5/crtatmega32.o
- .debug_abbrev  0x000004a3      0x286 APP/Src/APP.o
- .debug_abbrev  0x00000729      0x105 HAL/Bluetooth/src/Bluetooth.o
- .debug_abbrev  0x0000082e       0xd2 HAL/EEPROM/src/EEPROM.o
- .debug_abbrev  0x00000900      0x103 HAL/Keypad/src/Keypad.o
- .debug_abbrev  0x00000a03      0x1a9 HAL/LCD/src/LCD.o
- .debug_abbrev  0x00000bac      0x11a HAL/ServoMotor/src/ServoMotor.o
- .debug_abbrev  0x00000cc6      0x158 main.o
- .debug_abbrev  0x00000e1e       0xdd MCAL/DIO/src/DIO.o
- .debug_abbrev  0x00000efb       0xbb MCAL/DIO/src/DIO_CFG.o
- .debug_abbrev  0x00000fb6       0xcf MCAL/Ext_Int/src/Ext_Int.o
- .debug_abbrev  0x00001085      0x12b MCAL/SPI/src/SPI.o
- .debug_abbrev  0x000011b0      0x109 MCAL/TIMER1/src/TIMER1.o
- .debug_abbrev  0x000012b9      0x13b MCAL/TWI/src/TWI.o
- .debug_abbrev  0x000013f4      0x162 MCAL/UART/src/UART.o
+ .debug_abbrev  0x000004a3      0x294 APP/Src/APP.o
+ .debug_abbrev  0x00000737      0x105 HAL/Bluetooth/src/Bluetooth.o
+ .debug_abbrev  0x0000083c       0xd2 HAL/EEPROM/src/EEPROM.o
+ .debug_abbrev  0x0000090e      0x103 HAL/Keypad/src/Keypad.o
+ .debug_abbrev  0x00000a11      0x1a9 HAL/LCD/src/LCD.o
+ .debug_abbrev  0x00000bba      0x11a HAL/ServoMotor/src/ServoMotor.o
+ .debug_abbrev  0x00000cd4      0x14b main.o
+ .debug_abbrev  0x00000e1f       0xdd MCAL/DIO/src/DIO.o
+ .debug_abbrev  0x00000efc       0xbb MCAL/DIO/src/DIO_CFG.o
+ .debug_abbrev  0x00000fb7       0xcf MCAL/Ext_Int/src/Ext_Int.o
+ .debug_abbrev  0x00001086      0x12b MCAL/SPI/src/SPI.o
+ .debug_abbrev  0x000011b1      0x109 MCAL/TIMER1/src/TIMER1.o
+ .debug_abbrev  0x000012ba      0x13b MCAL/TWI/src/TWI.o
+ .debug_abbrev  0x000013f5      0x162 MCAL/UART/src/UART.o
 
-.debug_line     0x00000000     0x2a4d
+.debug_line     0x00000000     0x2b02
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x115 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega32/avr5/crtatmega32.o
- .debug_line    0x00000115     0x1258 APP/Src/APP.o
- .debug_line    0x0000136d       0xe4 HAL/Bluetooth/src/Bluetooth.o
- .debug_line    0x00001451       0xe8 HAL/EEPROM/src/EEPROM.o
- .debug_line    0x00001539      0x157 HAL/Keypad/src/Keypad.o
- .debug_line    0x00001690      0x33a HAL/LCD/src/LCD.o
- .debug_line    0x000019ca       0xef HAL/ServoMotor/src/ServoMotor.o
- .debug_line    0x00001ab9      0x288 main.o
- .debug_line    0x00001d41      0x2ae MCAL/DIO/src/DIO.o
- .debug_line    0x00001fef      0x102 MCAL/DIO/src/DIO_CFG.o
- .debug_line    0x000020f1      0x1ba MCAL/Ext_Int/src/Ext_Int.o
- .debug_line    0x000022ab      0x19c MCAL/SPI/src/SPI.o
- .debug_line    0x00002447      0x2b2 MCAL/TIMER1/src/TIMER1.o
- .debug_line    0x000026f9      0x1f7 MCAL/TWI/src/TWI.o
- .debug_line    0x000028f0      0x15d MCAL/UART/src/UART.o
+ .debug_line    0x00000115     0x130f APP/Src/APP.o
+ .debug_line    0x00001424       0xe4 HAL/Bluetooth/src/Bluetooth.o
+ .debug_line    0x00001508       0xe8 HAL/EEPROM/src/EEPROM.o
+ .debug_line    0x000015f0      0x157 HAL/Keypad/src/Keypad.o
+ .debug_line    0x00001747      0x33a HAL/LCD/src/LCD.o
+ .debug_line    0x00001a81       0xef HAL/ServoMotor/src/ServoMotor.o
+ .debug_line    0x00001b70      0x286 main.o
+ .debug_line    0x00001df6      0x2ae MCAL/DIO/src/DIO.o
+ .debug_line    0x000020a4      0x102 MCAL/DIO/src/DIO_CFG.o
+ .debug_line    0x000021a6      0x1ba MCAL/Ext_Int/src/Ext_Int.o
+ .debug_line    0x00002360      0x19c MCAL/SPI/src/SPI.o
+ .debug_line    0x000024fc      0x2b2 MCAL/TIMER1/src/TIMER1.o
+ .debug_line    0x000027ae      0x1f7 MCAL/TWI/src/TWI.o
+ .debug_line    0x000029a5      0x15d MCAL/UART/src/UART.o
 
-.debug_frame    0x00000000      0x940
+.debug_frame    0x00000000      0x990
  *(.debug_frame)
- .debug_frame   0x00000000      0x1d0 APP/Src/APP.o
- .debug_frame   0x000001d0       0x54 HAL/Bluetooth/src/Bluetooth.o
- .debug_frame   0x00000224       0x60 HAL/EEPROM/src/EEPROM.o
- .debug_frame   0x00000284       0x9c HAL/Keypad/src/Keypad.o
- .debug_frame   0x00000320       0xb8 HAL/LCD/src/LCD.o
- .debug_frame   0x000003d8       0x40 HAL/ServoMotor/src/ServoMotor.o
- .debug_frame   0x00000418       0x34 main.o
- .debug_frame   0x0000044c       0x84 MCAL/DIO/src/DIO.o
- .debug_frame   0x000004d0       0x24 MCAL/DIO/src/DIO_CFG.o
- .debug_frame   0x000004f4      0x15c MCAL/Ext_Int/src/Ext_Int.o
- .debug_frame   0x00000650       0x70 MCAL/SPI/src/SPI.o
- .debug_frame   0x000006c0      0x18c MCAL/TIMER1/src/TIMER1.o
- .debug_frame   0x0000084c       0x84 MCAL/TWI/src/TWI.o
- .debug_frame   0x000008d0       0x70 MCAL/UART/src/UART.o
+ .debug_frame   0x00000000      0x220 APP/Src/APP.o
+ .debug_frame   0x00000220       0x54 HAL/Bluetooth/src/Bluetooth.o
+ .debug_frame   0x00000274       0x60 HAL/EEPROM/src/EEPROM.o
+ .debug_frame   0x000002d4       0x9c HAL/Keypad/src/Keypad.o
+ .debug_frame   0x00000370       0xb8 HAL/LCD/src/LCD.o
+ .debug_frame   0x00000428       0x40 HAL/ServoMotor/src/ServoMotor.o
+ .debug_frame   0x00000468       0x34 main.o
+ .debug_frame   0x0000049c       0x84 MCAL/DIO/src/DIO.o
+ .debug_frame   0x00000520       0x24 MCAL/DIO/src/DIO_CFG.o
+ .debug_frame   0x00000544      0x15c MCAL/Ext_Int/src/Ext_Int.o
+ .debug_frame   0x000006a0       0x70 MCAL/SPI/src/SPI.o
+ .debug_frame   0x00000710      0x18c MCAL/TIMER1/src/TIMER1.o
+ .debug_frame   0x0000089c       0x84 MCAL/TWI/src/TWI.o
+ .debug_frame   0x00000920       0x70 MCAL/UART/src/UART.o
 
-.debug_str      0x00000000     0x1786
+.debug_str      0x00000000     0x176b
  *(.debug_str)
  .debug_str     0x00000000      0x196 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega32/avr5/crtatmega32.o
- .debug_str     0x00000196      0x603 APP/Src/APP.o
-                                0x644 (size before relaxing)
- .debug_str     0x00000799      0x2fa HAL/Bluetooth/src/Bluetooth.o
+ .debug_str     0x00000196      0x5f4 APP/Src/APP.o
+                                0x63e (size before relaxing)
+ .debug_str     0x0000078a      0x2fa HAL/Bluetooth/src/Bluetooth.o
                                 0x478 (size before relaxing)
- .debug_str     0x00000a93       0x62 HAL/EEPROM/src/EEPROM.o
+ .debug_str     0x00000a84       0x62 HAL/EEPROM/src/EEPROM.o
                                 0x208 (size before relaxing)
- .debug_str     0x00000af5       0x6c HAL/Keypad/src/Keypad.o
+ .debug_str     0x00000ae6       0x6c HAL/Keypad/src/Keypad.o
                                 0x394 (size before relaxing)
- .debug_str     0x00000b61       0x87 HAL/LCD/src/LCD.o
+ .debug_str     0x00000b52       0x87 HAL/LCD/src/LCD.o
                                 0x467 (size before relaxing)
- .debug_str     0x00000be8      0x2e7 HAL/ServoMotor/src/ServoMotor.o
+ .debug_str     0x00000bd9      0x2e7 HAL/ServoMotor/src/ServoMotor.o
                                 0x654 (size before relaxing)
- .debug_str     0x00000ecf      0x125 main.o
-                                0x7ad (size before relaxing)
- .debug_str     0x00000ff4       0xb3 MCAL/DIO/src/DIO.o
+ .debug_str     0x00000ec0      0x11f main.o
+                                0x75e (size before relaxing)
+ .debug_str     0x00000fdf       0xb3 MCAL/DIO/src/DIO.o
                                 0x440 (size before relaxing)
- .debug_str     0x000010a7       0x2b MCAL/DIO/src/DIO_CFG.o
+ .debug_str     0x00001092       0x25 MCAL/DIO/src/DIO_CFG.o
                                 0x3cf (size before relaxing)
- .debug_str     0x000010d2      0x145 MCAL/Ext_Int/src/Ext_Int.o
+ .debug_str     0x000010b7      0x145 MCAL/Ext_Int/src/Ext_Int.o
                                 0x2b7 (size before relaxing)
- .debug_str     0x00001217       0xfd MCAL/SPI/src/SPI.o
+ .debug_str     0x000011fc       0xfd MCAL/SPI/src/SPI.o
                                 0x56b (size before relaxing)
- .debug_str     0x00001314      0x1e7 MCAL/TIMER1/src/TIMER1.o
+ .debug_str     0x000012f9      0x1e7 MCAL/TIMER1/src/TIMER1.o
                                 0x619 (size before relaxing)
- .debug_str     0x000014fb       0xce MCAL/TWI/src/TWI.o
+ .debug_str     0x000014e0       0xce MCAL/TWI/src/TWI.o
                                 0x296 (size before relaxing)
- .debug_str     0x000015c9      0x1bd MCAL/UART/src/UART.o
+ .debug_str     0x000015ae      0x1bd MCAL/UART/src/UART.o
                                 0x5e8 (size before relaxing)
 
-.debug_loc      0x00000000     0x3f26
+.debug_loc      0x00000000     0x404e
  *(.debug_loc)
- .debug_loc     0x00000000     0x20c9 APP/Src/APP.o
- .debug_loc     0x000020c9       0x6d HAL/Bluetooth/src/Bluetooth.o
- .debug_loc     0x00002136      0x272 HAL/EEPROM/src/EEPROM.o
- .debug_loc     0x000023a8      0x256 HAL/Keypad/src/Keypad.o
- .debug_loc     0x000025fe      0x5a4 HAL/LCD/src/LCD.o
- .debug_loc     0x00002ba2       0xfa HAL/ServoMotor/src/ServoMotor.o
- .debug_loc     0x00002c9c       0x8f main.o
- .debug_loc     0x00002d2b      0x776 MCAL/DIO/src/DIO.o
- .debug_loc     0x000034a1      0x134 MCAL/DIO/src/DIO_CFG.o
- .debug_loc     0x000035d5      0x3b8 MCAL/Ext_Int/src/Ext_Int.o
- .debug_loc     0x0000398d      0x120 MCAL/SPI/src/SPI.o
- .debug_loc     0x00003aad      0x289 MCAL/TIMER1/src/TIMER1.o
- .debug_loc     0x00003d36       0xaa MCAL/TWI/src/TWI.o
- .debug_loc     0x00003de0      0x146 MCAL/UART/src/UART.o
+ .debug_loc     0x00000000     0x21f1 APP/Src/APP.o
+ .debug_loc     0x000021f1       0x6d HAL/Bluetooth/src/Bluetooth.o
+ .debug_loc     0x0000225e      0x272 HAL/EEPROM/src/EEPROM.o
+ .debug_loc     0x000024d0      0x256 HAL/Keypad/src/Keypad.o
+ .debug_loc     0x00002726      0x5a4 HAL/LCD/src/LCD.o
+ .debug_loc     0x00002cca       0xfa HAL/ServoMotor/src/ServoMotor.o
+ .debug_loc     0x00002dc4       0x8f main.o
+ .debug_loc     0x00002e53      0x776 MCAL/DIO/src/DIO.o
+ .debug_loc     0x000035c9      0x134 MCAL/DIO/src/DIO_CFG.o
+ .debug_loc     0x000036fd      0x3b8 MCAL/Ext_Int/src/Ext_Int.o
+ .debug_loc     0x00003ab5      0x120 MCAL/SPI/src/SPI.o
+ .debug_loc     0x00003bd5      0x289 MCAL/TIMER1/src/TIMER1.o
+ .debug_loc     0x00003e5e       0xaa MCAL/TWI/src/TWI.o
+ .debug_loc     0x00003f08      0x146 MCAL/UART/src/UART.o
 
 .debug_macinfo
  *(.debug_macinfo)
@@ -1031,22 +1037,22 @@ END GROUP
 .debug_pubtypes
  *(.debug_pubtypes)
 
-.debug_ranges   0x00000000      0x2c0
+.debug_ranges   0x00000000      0x2d8
  *(.debug_ranges)
- .debug_ranges  0x00000000       0x90 APP/Src/APP.o
- .debug_ranges  0x00000090       0x28 HAL/Bluetooth/src/Bluetooth.o
- .debug_ranges  0x000000b8       0x18 HAL/EEPROM/src/EEPROM.o
- .debug_ranges  0x000000d0       0x18 HAL/Keypad/src/Keypad.o
- .debug_ranges  0x000000e8       0x40 HAL/LCD/src/LCD.o
- .debug_ranges  0x00000128       0x10 HAL/ServoMotor/src/ServoMotor.o
- .debug_ranges  0x00000138       0x10 main.o
- .debug_ranges  0x00000148       0x40 MCAL/DIO/src/DIO.o
- .debug_ranges  0x00000188       0x10 MCAL/DIO/src/DIO_CFG.o
- .debug_ranges  0x00000198       0x40 MCAL/Ext_Int/src/Ext_Int.o
- .debug_ranges  0x000001d8       0x28 MCAL/SPI/src/SPI.o
- .debug_ranges  0x00000200       0x58 MCAL/TIMER1/src/TIMER1.o
- .debug_ranges  0x00000258       0x40 MCAL/TWI/src/TWI.o
- .debug_ranges  0x00000298       0x28 MCAL/UART/src/UART.o
+ .debug_ranges  0x00000000       0xa8 APP/Src/APP.o
+ .debug_ranges  0x000000a8       0x28 HAL/Bluetooth/src/Bluetooth.o
+ .debug_ranges  0x000000d0       0x18 HAL/EEPROM/src/EEPROM.o
+ .debug_ranges  0x000000e8       0x18 HAL/Keypad/src/Keypad.o
+ .debug_ranges  0x00000100       0x40 HAL/LCD/src/LCD.o
+ .debug_ranges  0x00000140       0x10 HAL/ServoMotor/src/ServoMotor.o
+ .debug_ranges  0x00000150       0x10 main.o
+ .debug_ranges  0x00000160       0x40 MCAL/DIO/src/DIO.o
+ .debug_ranges  0x000001a0       0x10 MCAL/DIO/src/DIO_CFG.o
+ .debug_ranges  0x000001b0       0x40 MCAL/Ext_Int/src/Ext_Int.o
+ .debug_ranges  0x000001f0       0x28 MCAL/SPI/src/SPI.o
+ .debug_ranges  0x00000218       0x58 MCAL/TIMER1/src/TIMER1.o
+ .debug_ranges  0x00000270       0x40 MCAL/TWI/src/TWI.o
+ .debug_ranges  0x000002b0       0x28 MCAL/UART/src/UART.o
 
 .debug_macro
  *(.debug_macro)

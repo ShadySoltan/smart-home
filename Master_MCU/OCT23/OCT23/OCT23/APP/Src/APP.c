@@ -7,7 +7,7 @@
 #include "APP.h"
 
 /*************************************************************
-					Custom Characters / Symbols
+Custom Characters / Symbols
 *************************************************************/
 
 s8 customChar[] = {
@@ -22,7 +22,7 @@ s8 customChar[] = {
 }; //Degree Symbol for LCD
 
 /*************************************************************
-			Check Password Existence Function
+Check Password Existence Function
 *************************************************************/
 
 u8 Password_Exist(u8 location)
@@ -53,7 +53,7 @@ u8 Password_Exist(u8 location)
 }
 
 /*************************************************************
-		Get Saved Password from EEPROM Function
+Get Saved Password from EEPROM Function
 *************************************************************/
 
 void getPassword(u8 location, s8* Store)
@@ -66,9 +66,9 @@ void getPassword(u8 location, s8* Store)
 }
 
 /*************************************************************
-				Registration Menu Function
+Registration Menu Function
 *************************************************************/
-void Menu1(void)
+void Menu1(u8 location)
 {
 	LCD_Clear();
 	_delay_ms(30);
@@ -79,7 +79,7 @@ void Menu1(void)
 	_delay_ms(400);
 	LCD_Clear();
 	
-	if(Password_Exist(USER_PASS_LOC) == 0)
+	if(Password_Exist(location) == 0)
 	{
 		s8 Password_User[PASSWORD_LENGTH] = {STD_Low};
 		s8 Password_Confirm[PASSWORD_LENGTH] = {STD_Low};
@@ -89,6 +89,18 @@ void Menu1(void)
 		LCD_Clear();
 		
 		RetryPassword:LCD_String("SetPassword:");
+		if(location == USER_PASS_LOC)
+		{
+			LCD_SetPos(2,0);
+			LCD_String("*****USER1*****");
+			LCD_SetPos(1,12);
+		}
+		else if (location == USER2_PASS_LOC)
+		{
+			LCD_SetPos(2,0);
+			LCD_String("*****USER2*****");	
+			LCD_SetPos(1,12);		
+		}
 		u8 Password_Counter = 0;
 		while(Password_Counter<PASSWORD_LENGTH)
 		{
@@ -137,12 +149,14 @@ void Menu1(void)
 		{
 			for(u8 i = 0; i < PASSWORD_LENGTH; i++)
 			{
-				EEPROM_WriteByte(USER_PASS_LOC,i,Password_User[i]);
+				EEPROM_WriteByte(location,i,Password_User[i]);
 				_delay_ms(200);
 			}
 			LCD_String("Password Saved!");
 			_delay_ms(400);
 			LCD_Clear();
+			Bluetooth_TransmaitString("\nUser Registered successfully!");
+			AdminMenu();
 		}
 		else
 		{
@@ -164,14 +178,14 @@ void Menu1(void)
 		LCD_String("Welcome Home");
 		_delay_ms(400);
 		LCD_Clear();
-		Menu2();
+		Menu2(location);
 	}
 }
 
 /*************************************************************
-					Login Menu Function
+Login Menu Function
 *************************************************************/
-void Menu2(void)
+void Menu2(u8 location)
 {
 	s8 Password_User[PASSWORD_LENGTH] = {STD_Low};
 	s8 SavedPassword[PASSWORD_LENGTH] = {STD_Low};
@@ -179,13 +193,28 @@ void Menu2(void)
 	s8 LCD_TRIALS_CHAR = '3';
 	u8 Password_Counter = 0;
 	
-	getPassword(USER_PASS_LOC,SavedPassword);
+	getPassword(location,SavedPassword);
 	_delay_ms(50);
 	
 	Retry://If Entered Password wrong return here
 	Password_Counter = 0;
 	LCD_Clear();
 	LCD_String("Password:");
+	LCD_SetPos(2,0);
+	if(location == USER_PASS_LOC)
+	{
+		LCD_String("*****USER1*****");
+	}
+	else if (location == USER2_PASS_LOC)
+	{
+		LCD_String("*****USER2*****");
+	}
+	else
+	{
+		//Do nothing
+	}
+	LCD_SetPos(1,9);
+	
 	while(Password_Counter<PASSWORD_LENGTH)
 	{
 		u8 keypad = STD_Low;
@@ -219,7 +248,7 @@ void Menu2(void)
 		LCD_String("!HomeSweetHome!");
 		_delay_ms(500);
 		LCD_Clear();
-		MainMenu();
+		MainMenu(location);
 	}
 	else
 	{
@@ -253,7 +282,7 @@ void Menu2(void)
 }
 
 /*************************************************************
-				Checking & Firing Alarm Function
+Checking & Firing Alarm Function
 *************************************************************/
 
 void ALARM(void)
@@ -277,10 +306,10 @@ void ALARM(void)
 }
 
 /*************************************************************
-				User Control Main Menu
+User Control Main Menu
 *************************************************************/
 
-void MainMenu(void) //Main App Menu
+void MainMenu(u8 location) //Main App Menu
 {
 	u8 PressKey = STD_Low;
 	LCD_Clear();
@@ -297,13 +326,13 @@ void MainMenu(void) //Main App Menu
 				case '1':
 				LCD_Clear();
 				PressKey = STD_Low;
-				ROOM1();
+				ROOM1(location);
 				break;
 				
 				case '2':
 				LCD_Clear();
 				PressKey = STD_Low;
-				ROOM2();
+				ROOM2(location);
 				break;
 				
 				case '3':
@@ -320,7 +349,7 @@ void MainMenu(void) //Main App Menu
 				LCD_SetPos(2,0);
 				LCD_String("System Locked");
 				_delay_ms(200);
-				Menu2();
+				Menu2(location);
 				break;
 				
 				default:
@@ -328,7 +357,7 @@ void MainMenu(void) //Main App Menu
 				LCD_String("Wrong Choice!");
 				_delay_ms(400);
 				LCD_Clear();
-				MainMenu();
+				MainMenu(location);
 				break;
 			}
 		}
@@ -336,7 +365,7 @@ void MainMenu(void) //Main App Menu
 }
 
 /*************************************************************
-		Checking Door Last Position Function
+Checking Door Last Position Function
 *************************************************************/
 
 void DoorCheck(void)
@@ -355,10 +384,10 @@ void DoorCheck(void)
 }
 
 /*************************************************************
-				Room1 Controlling Menu
+Room1 Controlling Menu
 *************************************************************/
 
-void ROOM1(void)
+void ROOM1(u8 location)
 {
 	u8 Key = STD_Low;
 	u8 Slave_Status = STD_Low;
@@ -400,12 +429,12 @@ void ROOM1(void)
 								SPI_TxRx(Led1_TurnOff);
 								Bluetooth_TransmaitString("\nLamp1,Room1 is Off now!");
 								Key = STD_Low;
-								ROOM1();
+								ROOM1(location);
 								break;
 								
 								case '2':
 								SPI_TxRx(Return_MainMenu);
-								ROOM1();
+								ROOM1(location);
 								break;
 							}
 						}
@@ -430,12 +459,12 @@ void ROOM1(void)
 								SPI_TxRx(Led1_TurnOn);
 								Bluetooth_TransmaitString("\nLamp1,Room1 is on now!");
 								Key = STD_Low;
-								ROOM1();
+								ROOM1(location);
 								break;
 								
 								case '2':
 								SPI_TxRx(Return_MainMenu);
-								ROOM1();
+								ROOM1(location);
 								break;
 							}
 						}
@@ -446,7 +475,7 @@ void ROOM1(void)
 					//Do nothing
 				}
 				LCD_Clear();
-				ROOM1();
+				ROOM1(location);
 				break;
 				
 				
@@ -476,12 +505,12 @@ void ROOM1(void)
 								SPI_TxRx(Led2_TurnOff);
 								Bluetooth_TransmaitString("\nLamp2,Room1 is Off now!");
 								Key = STD_Low;
-								ROOM1();
+								ROOM1(location);
 								break;
 								
 								case '2':
 								SPI_TxRx(Return_MainMenu);
-								ROOM1();
+								ROOM1(location);
 								break;
 							}
 						}
@@ -506,13 +535,13 @@ void ROOM1(void)
 								SPI_TxRx(Led2_TurnOn);
 								Bluetooth_TransmaitString("\nLamp2,Room1 is on now!");
 								Key = STD_Low;
-								ROOM1();
+								ROOM1(location);
 								break;
 								
 								case '2':
 								SPI_TxRx(Return_MainMenu);
 								Key = STD_Low;
-								ROOM1();
+								ROOM1(location);
 								break;
 							}
 						}
@@ -523,7 +552,7 @@ void ROOM1(void)
 					//Do nothing
 				}
 				LCD_Clear();
-				ROOM1();
+				ROOM1(location);
 				break;
 				
 				case '3':
@@ -552,12 +581,12 @@ void ROOM1(void)
 								SPI_TxRx(Air_Cond_TurnOff);
 								Bluetooth_TransmaitString("\nAir conditioner,Room1 is Off now!");
 								Key = STD_Low;
-								ROOM1();
+								ROOM1(location);
 								break;
 								
 								case '2':
 								SPI_TxRx(Return_MainMenu);
-								ROOM1();
+								ROOM1(location);
 								break;
 							}
 						}
@@ -615,13 +644,13 @@ void ROOM1(void)
 								SPI_TxRx(Air_Cond_TurnOn);
 								Bluetooth_TransmaitString("\nAir conditioner,Room1 is on now!");
 								SPI_TxRx(Temperature);
-								ROOM1();
+								ROOM1(location);
 								break;
 								
 								case '2':
 								SPI_TxRx(Return_MainMenu);
 								Key = STD_Low;
-								ROOM1();
+								ROOM1(location);
 								break;
 							}
 						}
@@ -632,12 +661,12 @@ void ROOM1(void)
 					//Do nothing
 				}
 				LCD_Clear();
-				ROOM1();
+				ROOM1(location);
 				break;
 				
 				case '4':
 				LCD_Clear();
-				MainMenu();
+				MainMenu(location);
 				break;
 				
 				default:
@@ -653,9 +682,9 @@ void ROOM1(void)
 }
 
 /*************************************************************
-				Room2 Controlling Menu
+Room2 Controlling Menu
 *************************************************************/
-void ROOM2(void)
+void ROOM2(u8 location)
 {
 	u8 Key = STD_Low;
 	u8 Slave_Status = STD_Low;
@@ -697,12 +726,12 @@ void ROOM2(void)
 								SPI_TxRx(Led3_TurnOff);
 								Bluetooth_TransmaitString("\nLamp1,Room2 is Off now!");
 								Key = STD_Low;
-								ROOM2();
+								ROOM2(location);
 								break;
 								
 								case '2':
 								SPI_TxRx(Return_MainMenu);
-								ROOM2();
+								ROOM2(location);
 								break;
 							}
 						}
@@ -727,12 +756,12 @@ void ROOM2(void)
 								SPI_TxRx(Led3_TurnOn);
 								Bluetooth_TransmaitString("\nLamp1,Room2 is on now!");
 								Key = STD_Low;
-								ROOM2();
+								ROOM2(location);
 								break;
 								
 								case '2':
 								SPI_TxRx(Return_MainMenu);
-								ROOM2();
+								ROOM2(location);
 								break;
 							}
 						}
@@ -743,7 +772,7 @@ void ROOM2(void)
 					//Do nothing
 				}
 				LCD_Clear();
-				ROOM2();
+				ROOM2(location);
 				break;
 				
 				
@@ -773,12 +802,12 @@ void ROOM2(void)
 								SPI_TxRx(Led4_TurnOff);
 								Bluetooth_TransmaitString("\nLamp2,Room2 is Off now!");
 								Key = STD_Low;
-								ROOM2();
+								ROOM2(location);
 								break;
 								
 								case '2':
 								SPI_TxRx(Return_MainMenu);
-								ROOM2();
+								ROOM2(location);
 								break;
 							}
 						}
@@ -803,13 +832,13 @@ void ROOM2(void)
 								SPI_TxRx(Led4_TurnOn);
 								Bluetooth_TransmaitString("\nLamp2,Room2 is on now!");
 								Key = STD_Low;
-								ROOM2();
+								ROOM2(location);
 								break;
 								
 								case '2':
 								SPI_TxRx(Return_MainMenu);
 								Key = STD_Low;
-								ROOM2();
+								ROOM2(location);
 								break;
 							}
 						}
@@ -820,7 +849,7 @@ void ROOM2(void)
 					//Do nothing
 				}
 				LCD_Clear();
-				ROOM2();
+				ROOM2(location);
 				break;
 				
 				case '3':
@@ -849,12 +878,12 @@ void ROOM2(void)
 								SPI_TxRx(Led5_TurnOff);
 								Bluetooth_TransmaitString("\nLamp3,Room2 is Off now!");
 								Key = STD_Low;
-								ROOM2();
+								ROOM2(location);
 								break;
 								
 								case '2':
 								SPI_TxRx(Return_MainMenu);
-								ROOM2();
+								ROOM2(location);
 								break;
 							}
 						}
@@ -879,13 +908,13 @@ void ROOM2(void)
 								SPI_TxRx(Led5_TurnOn);
 								Bluetooth_TransmaitString("\nLamp3,Room2 is on now!");
 								Key = STD_Low;
-								ROOM2();
+								ROOM2(location);
 								break;
 								
 								case '2':
 								SPI_TxRx(Return_MainMenu);
 								Key = STD_Low;
-								ROOM2();
+								ROOM2(location);
 								break;
 							}
 						}
@@ -896,12 +925,12 @@ void ROOM2(void)
 					//Do nothing
 				}
 				LCD_Clear();
-				ROOM2();
+				ROOM2(location);
 				break;
 				
 				case '4':
 				LCD_Clear();
-				MainMenu();
+				MainMenu(location);
 				break;
 				
 				default:
@@ -917,7 +946,7 @@ void ROOM2(void)
 }
 
 /*************************************************************
-				Admin Mode Controlling Menu
+Admin Mode Controlling Menu
 *************************************************************/
 
 void AdminMenu(void)
@@ -925,12 +954,13 @@ void AdminMenu(void)
 	LCD_Clear();
 	LCD_String("Admin mode on");
 	Bluetooth_TransmaitString("\n\nSmart-Home Project\nAdmin mode\n");
-	Bluetooth_TransmaitString("Room1\n11)Lamp1\n22)Lamp2\n33)Air-Conditioner\n\n");
-	Bluetooth_TransmaitString("\nRoom2\n44)Lamp1\n55)Lamp2\n66)Lamp3\n7)Main-Door\n8)User-Mode");
-	u8 Admin_Choice = STD_Low, status = STD_Low;
+	Bluetooth_TransmaitString("Room1\n11)Lamp1\n22)Lamp2\n33)Air-Conditioner\n\n________________________________");
+	Bluetooth_TransmaitString("\nRoom2\n44)Lamp1\n55)Lamp2\n66)Lamp3\n7)Main-Door\n\n________________________________\nNumber\na)Register User\nb)Delete User One\nc)Delete User Two\nd)Number of registered users\ne)User-Mode");
+	u8 Admin_Choice = STD_Low, status = STD_Low, usersCount = 0;
 	
 	adminmenu:
 	Admin_Choice = STD_Low;
+	usersCount = 0;
 	Admin_Choice = Bluetooth_Receive();
 	
 
@@ -1050,10 +1080,124 @@ void AdminMenu(void)
 		}
 		break;
 		
-		case '8':
-		Bluetooth_TransmaitString("\n\n\n\n\n\n\n\nUser mode On!");
-		_delay_ms(50);
-		Menu1();
+		case 'e':
+		usersCount = Users_Count();
+		if(usersCount == 0)
+		{
+			Bluetooth_TransmaitString("\nNo Registered Users, register a user first!");
+			goto adminmenu;
+		}
+		else if(usersCount == 1)
+		{
+			u8 exist1=STD_Low,exist2 = STD_Low;
+			exist1 = Password_Exist(USER_PASS_LOC);
+			exist2 = Password_Exist(USER2_PASS_LOC);
+			if(exist1 == 1)
+			{
+				Bluetooth_TransmaitString("\n\n\n\n\n\n\n\nUser One mode On!");
+				_delay_ms(50);
+				Menu1(USER_PASS_LOC);
+			}
+			else if (exist2 == 1)
+			{
+				Bluetooth_TransmaitString("\n\n\n\n\n\n\n\nUser Two mode On!");
+				_delay_ms(50);
+				Menu1(USER2_PASS_LOC);
+			}
+			else
+			{
+				//Do nothing
+			}
+		}
+		else if(usersCount == 2)
+		{
+			ChooseUser();
+		}
+
+		break;
+		
+		case 'd':
+		usersCount = Users_Count();
+		if(usersCount == 0)
+		{
+			Bluetooth_TransmaitString("\nNo users Registered! (0/2)");
+			goto adminmenu;
+		}
+		else if(usersCount == 1)
+		{
+			Bluetooth_TransmaitString("\nOne users Registered! (1/2)");
+			goto adminmenu;
+		}
+		else if(usersCount == 2)
+		{
+			Bluetooth_TransmaitString("\nTwo users Registered! (2/2)");
+			goto adminmenu;
+		}
+		else
+		{
+			//Do nothing
+		}
+		goto adminmenu;
+		break;
+		
+		case 'a':
+		usersCount = Users_Count();
+		if(usersCount == 2)
+		{
+			Bluetooth_TransmaitString("\nAll users are registered!");
+			goto adminmenu;
+		}
+		else
+		{
+			u8 exist1 = STD_Low;
+			exist1 = Password_Exist(USER_PASS_LOC);
+			if(exist1 == 1)
+			{
+				Bluetooth_TransmaitString("\nRegister User Two Now!");
+				Menu1(USER2_PASS_LOC);
+			}
+			else
+			{
+				Bluetooth_TransmaitString("\nRegister user One Now!");
+				Menu1(USER_PASS_LOC);
+			}
+		}
+		break;
+		
+		case 'b':
+		if(Password_Exist(USER_PASS_LOC) == 1)
+		{
+			for(u8 i = 0 ; i < 4; i++)
+			{
+				EEPROM_WriteByte(USER_PASS_LOC,i,0xFF);
+				_delay_ms(200);
+			}
+			Bluetooth_TransmaitString("\nUser One deleted successfully!");
+			goto adminmenu;
+		}
+		else
+		{
+			Bluetooth_TransmaitString("\nUser One is not registered yet!");
+			goto adminmenu;
+		}
+		break;
+		
+		case 'c':
+		if(Password_Exist(USER2_PASS_LOC) == 1)
+		{
+			for(u8 i = 0 ; i < 4; i++)
+			{
+				EEPROM_WriteByte(USER2_PASS_LOC,i,0xFF);
+				_delay_ms(200);
+			}
+			Bluetooth_TransmaitString("\nUser Two deleted successfully!");
+			goto adminmenu;
+		}
+		else
+		{
+			Bluetooth_TransmaitString("\nUser Two is not registered yet!");
+			goto adminmenu;
+		}
 		break;
 		
 		default:
@@ -1063,114 +1207,186 @@ void AdminMenu(void)
 }
 
 /*************************************************************
-				Door Controlling Function
+Door Controlling Function
 *************************************************************/
 
-void Door(void)
+/*void Door(void)
 {
-	LCD_Clear();
-	u8 Door_Status = STD_Low;
-	u8 Key = STD_Low;
-	Door_Status = EEPROM_ReadByte(DOOR_Status_Loc,0);
-	_delay_ms(50);
-	if(Door_Status == 0xFF)
+LCD_Clear();
+u8 Door_Status = STD_Low;
+u8 Key = STD_Low;
+Door_Status = EEPROM_ReadByte(DOOR_Status_Loc,0);
+_delay_ms(50);
+if(Door_Status == 0xFF)
+{
+LCD_Clear();
+LCD_String("Door is closed!");
+_delay_ms(500);
+Tryagain1:LCD_Clear();
+LCD_String("press 1 open");
+LCD_SetPos(2,0);
+LCD_String("press 0 return");
+_delay_ms(20);
+
+while(Key == STD_Low)
+{
+Key = GetKey();
+if (Key != STD_Low)
+{
+switch(Key)
+{
+case '1':
+LCD_Clear();
+LCD_String("Opening Door");
+Bluetooth_TransmaitString("\nMain Door is Opened!");
+ServoMotor(90);
+EEPROM_WriteByte(DOOR_Status_Loc,0,'1');
+_delay_ms(500);
+Key = STD_Low;
+LCD_Clear();
+MainMenu();
+break;
+
+case '0':
+LCD_Clear();
+LCD_String("Return to menu!");
+_delay_ms(400);
+Key = STD_Low;
+LCD_Clear();
+MainMenu();
+break;
+
+default:
+LCD_Clear();
+LCD_String("Wrong choice!");
+_delay_ms(500);
+Key = STD_Low;
+goto Tryagain1;
+break;
+}
+}
+}
+}
+else
+{
+LCD_Clear();
+LCD_String("Door is opened!");
+_delay_ms(500);
+Tryagain2:LCD_Clear();
+LCD_String("press 1 close");
+LCD_SetPos(2,0);
+LCD_String("press 0 return");
+_delay_ms(20);
+
+while(Key == STD_Low)
+{
+Key = GetKey();
+if (Key != STD_Low)
+{
+switch(Key)
+{
+case '1':
+LCD_Clear();
+LCD_String("Closing Door");
+Bluetooth_TransmaitString("\nMain Door is Closed!");
+ServoMotor(0);
+EEPROM_WriteByte(DOOR_Status_Loc,0,0xFF);
+_delay_ms(500);
+Key = STD_Low;
+LCD_Clear();
+MainMenu();
+break;
+
+case '0':
+LCD_Clear();
+LCD_String("Return to menu!");
+_delay_ms(400);
+Key = STD_Low;
+LCD_Clear();
+MainMenu();
+break;
+
+default:
+LCD_Clear();
+LCD_String("Wrong choice!");
+_delay_ms(500);
+Key = STD_Low;
+goto Tryagain2;
+break;
+}
+}
+}
+}
+}*/
+
+u8 Users_Count(void)
+{
+	u8 Password_characters_count = 0;
+	if(Password_Exist(USER_PASS_LOC) == 1)
 	{
-		LCD_Clear();
-		LCD_String("Door is closed!");
-		_delay_ms(500);
-		Tryagain1:LCD_Clear();
-		LCD_String("press 1 open");
-		LCD_SetPos(2,0);
-		LCD_String("press 0 return");
-		_delay_ms(20);
-		
-		while(Key == STD_Low)
-		{
-			Key = GetKey();
-			if (Key != STD_Low)
-			{
-				switch(Key)
-				{
-					case '1':
-					LCD_Clear();
-					LCD_String("Opening Door");
-					Bluetooth_TransmaitString("\nMain Door is Opened!");
-					ServoMotor(90);
-					EEPROM_WriteByte(DOOR_Status_Loc,0,'1');
-					_delay_ms(500);
-					Key = STD_Low;
-					LCD_Clear();
-					MainMenu();
-					break;
-					
-					case '0':
-					LCD_Clear();
-					LCD_String("Return to menu!");
-					_delay_ms(400);
-					Key = STD_Low;
-					LCD_Clear();
-					MainMenu();
-					break;
-					
-					default:
-					LCD_Clear();
-					LCD_String("Wrong choice!");
-					_delay_ms(500);
-					Key = STD_Low;
-					goto Tryagain1;
-					break;
-				}
-			}
-		}
+		Password_characters_count++;
 	}
 	else
 	{
-		LCD_Clear();
-		LCD_String("Door is opened!");
-		_delay_ms(500);
-		Tryagain2:LCD_Clear();
-		LCD_String("press 1 close");
-		LCD_SetPos(2,0);
-		LCD_String("press 0 return");
-		_delay_ms(20);
-		
-		while(Key == STD_Low)
+		Password_characters_count = Password_characters_count;
+	}
+	
+	if(Password_Exist(USER2_PASS_LOC) == 1)
+	{
+		Password_characters_count++;
+	}
+	else
+	{
+		Password_characters_count = Password_characters_count;
+	}
+	return Password_characters_count;
+}
+
+void Register(void)
+{
+	u8 exist1 = STD_Low,exist2 = STD_Low;
+	exist1 = Password_Exist(USER_PASS_LOC);
+	exist2 = Password_Exist(USER2_PASS_LOC);
+	if(exist1 == 1)
+	{
+		Menu1(USER_PASS_LOC);
+	}
+	else if(exist2 == 1)
+	{
+		Menu1(USER2_PASS_LOC);
+	}
+	else
+	{
+		//Do nothing
+	}
+}
+
+void ChooseUser(void)
+{
+	u8 Key = STD_Low;
+	LCD_Clear();
+	LCD_String("1:User1 2:User2");
+	while(Key == STD_Low)
+	{
+		Key = GetKey();
+		if(Key != STD_Low)
 		{
-			Key = GetKey();
-			if (Key != STD_Low)
+			switch(Key)
 			{
-				switch(Key)
-				{
-					case '1':
-					LCD_Clear();
-					LCD_String("Closing Door");
-					Bluetooth_TransmaitString("\nMain Door is Closed!");
-					ServoMotor(0);
-					EEPROM_WriteByte(DOOR_Status_Loc,0,0xFF);
-					_delay_ms(500);
-					Key = STD_Low;
-					LCD_Clear();
-					MainMenu();
-					break;
-					
-					case '0':
-					LCD_Clear();
-					LCD_String("Return to menu!");
-					_delay_ms(400);
-					Key = STD_Low;
-					LCD_Clear();
-					MainMenu();
-					break;
-					
-					default:
-					LCD_Clear();
-					LCD_String("Wrong choice!");
-					_delay_ms(500);
-					Key = STD_Low;
-					goto Tryagain2;
-					break;
-				}
+				case '1':
+				Menu2(USER_PASS_LOC);
+				Bluetooth_TransmaitString("\nUser One is now in control!");
+				Bluetooth_TransmaitString("\n\n\n\n\n\n\n\nUser One mode On!");
+				break;
+				
+				case '2':
+				Menu2(USER2_PASS_LOC);
+				Bluetooth_TransmaitString("\nUser Two is now in control!");
+				Bluetooth_TransmaitString("\n\n\n\n\n\n\n\nUser Two mode On!");
+				break;
 			}
 		}
 	}
 }
+
+

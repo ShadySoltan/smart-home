@@ -21,24 +21,29 @@
 
 #define PASSWORD_LENGTH 4
 #define USER_PASS_LOC 0b10100000
+#define USER2_PASS_LOC 0b10101000
 #define PASSWORD_TRIALS 3
 #define ALARM_LOC 0b10100010
 #define DOOR_Status_Loc 0b10100100
 
 u8 Password_Exist(u8 location);
 void getPassword(u8 location, s8* Store);
-void Menu1(void);
-void Menu2(void);
-void MainMenu(void);
+void Menu1(u8 location);
+void Menu2(u8 location);
+void MainMenu(u8 location);
 void ALARM(void);
 void AdminMenu(void);
 
 //Main Menu Functions
 void Door(void); //Check if door is open or closed
 void DoorCheck(void);
-void ROOM1(void);
-void ROOM2(void);
+void ROOM1(u8 location);
+void ROOM2(u8 location);
+void ChooseUser(void);
 
+//Admin MoreMenu More Options
+u8 Users_Count(void);
+void Register(void);
 
 //SPI Design
 #define Led1 '1'
